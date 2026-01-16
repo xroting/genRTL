@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls:*)",
+      "Bash(find:*)",
+      "Bash(convert --version:*)",
+      "Bash(python convert_logo.py:*)",
+      "Bash(grep:*)",
+      "Bash(node -e:*)",
+      "Bash(node update_exe_icon.js:*)",
+      "Bash(python:*)",
+      "Bash(cat:*)",
+      "Bash(dir:*)"
+    ]
+  }
+}

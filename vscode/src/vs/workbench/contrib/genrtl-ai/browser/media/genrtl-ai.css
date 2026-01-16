@@ -1,0 +1,204 @@
+/*--------------------------------------------------------------------------------------
+ *  Copyright 2025 genRTL Team. All rights reserved.
+ *  Licensed under the Apache License, Version 2.0. See LICENSE.txt for more information.
+ *--------------------------------------------------------------------------------------*/
+
+.monaco-editor .genrtl-ai-sweepIdxBG {
+	background-color: var(--vscode-genrtl-ai-sweepIdxBG);
+}
+
+.genrtl-ai-sweepBG {
+	background-color: var(--vscode-genrtl-ai-sweepBG);
+}
+
+.genrtl-ai-highlightBG {
+	background-color: var(--vscode-genrtl-ai-highlightBG);
+}
+
+.genrtl-ai-greenBG {
+	background-color: var(--vscode-genrtl-ai-greenBG);
+}
+
+.genrtl-ai-redBG {
+	background-color: var(--vscode-genrtl-ai-redBG);
+}
+
+
+/* Renamed from genRTL-watermark-button to genRTL-openfolder-button */
+.genrtl-ai-openfolder-button {
+    padding: 8px 20px;
+    background-color: #306dce;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    outline: none !important;
+	box-shadow: none !important;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+.genrtl-ai-openfolder-button:hover {
+    background-color: #2563eb;
+}
+.genrtl-ai-openfolder-button:active {
+    background-color: #2563eb;
+}
+
+/* Added for Open SSH button with slightly darker color */
+.genrtl-ai-openssh-button {
+    padding: 8px 20px;
+    background-color: #656565; /* Slightly darker than the #5a5a5a in the TS file */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    outline: none !important;
+	box-shadow: none !important;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+.genrtl-ai-openssh-button:hover {
+    background-color: #474747; /* Darker on hover */
+}
+.genrtl-ai-openssh-button:active {
+    background-color: #474747;
+}
+
+
+.genrtl-ai-settings-watermark-button {
+	margin: 8px 0;
+	padding: 8px 20px;
+	background-color: var(--vscode-input-background);
+	color: var(--vscode-input-foreground);
+	border: none;
+	border-radius: 4px;
+	outline: none !important;
+	box-shadow: none !important;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.genrtl-ai-settings-watermark-button:hover {
+	filter: brightness(1.1);
+}
+
+.genrtl-ai-settings-watermark-button:active {
+	filter: brightness(1.1);
+}
+
+.genrtl-ai-link {
+	color: #3b82f6;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.genrtl-ai-link:hover {
+	opacity: 80%;
+}
+
+/* styles for all containers used by genRTL */
+.genrtl-ai-scope {
+	--scrollbar-vertical-width: 8px;
+	--scrollbar-horizontal-height: 6px;
+}
+
+/* Target both genRTL-scope and all its descendants with scrollbars */
+.genrtl-ai-scope,
+.genrtl-ai-scope * {
+	scrollbar-width: thin !important;
+	scrollbar-color: var(--genrtl-ai-bg-1) var(--genrtl-ai-bg-3) !important;
+	/* For Firefox */
+}
+
+.genrtl-ai-scope::-webkit-scrollbar,
+.genrtl-ai-scope *::-webkit-scrollbar {
+	width: var(--scrollbar-vertical-width) !important;
+	height: var(--scrollbar-horizontal-height) !important;
+	background-color: var(--genrtl-ai-bg-3) !important;
+}
+
+.genrtl-ai-scope::-webkit-scrollbar-thumb,
+.genrtl-ai-scope *::-webkit-scrollbar-thumb {
+	background-color: var(--genrtl-ai-bg-1) !important;
+	border-radius: 4px !important;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.genrtl-ai-scope::-webkit-scrollbar-thumb:hover,
+.genrtl-ai-scope *::-webkit-scrollbar-thumb:hover {
+	background-color: var(--genrtl-ai-bg-1) !important;
+	filter: brightness(1.1) !important;
+}
+
+.genrtl-ai-scope::-webkit-scrollbar-thumb:active,
+.genrtl-ai-scope *::-webkit-scrollbar-thumb:active {
+	background-color: var(--genrtl-ai-bg-1) !important;
+	filter: brightness(1.2) !important;
+}
+
+.genrtl-ai-scope::-webkit-scrollbar-track,
+.genrtl-ai-scope *::-webkit-scrollbar-track {
+	background-color: var(--genrtl-ai-bg-3) !important;
+	border: none !important;
+}
+
+.genrtl-ai-scope::-webkit-scrollbar-corner,
+.genrtl-ai-scope *::-webkit-scrollbar-corner {
+	background-color: var(--genrtl-ai-bg-3) !important;
+}
+
+/* Add genRTL-scrollable-element styles to match */
+.genrtl-ai-scrollable-element {
+	background-color: var(--vscode-editor-background);
+	--scrollbar-vertical-width: 14px;
+	--scrollbar-horizontal-height: 6px;
+	overflow: auto;
+	/* Ensure scrollbars are shown when needed */
+}
+
+.genrtl-ai-scrollable-element,
+.genrtl-ai-scrollable-element * {
+	scrollbar-width: thin !important;
+	/* For Firefox */
+	scrollbar-color: var(--genrtl-ai-bg-1) var(--genrtl-ai-bg-3) !important;
+	/* For Firefox */
+}
+
+.genrtl-ai-scrollable-element::-webkit-scrollbar,
+.genrtl-ai-scrollable-element *::-webkit-scrollbar {
+	width: var(--scrollbar-vertical-width) !important;
+	height: var(--scrollbar-horizontal-height) !important;
+	background-color: var(--genrtl-ai-bg-3) !important;
+}
+
+.genrtl-ai-scrollable-element::-webkit-scrollbar-thumb,
+.genrtl-ai-scrollable-element *::-webkit-scrollbar-thumb {
+	background-color: var(--genrtl-ai-bg-1) !important;
+	border-radius: 4px !important;
+	border: none !important;
+	-webkit-box-shadow: none !important;
+	box-shadow: none !important;
+}
+
+.genrtl-ai-scrollable-element::-webkit-scrollbar-thumb:hover,
+.genrtl-ai-scrollable-element *::-webkit-scrollbar-thumb:hover {
+	background-color: var(--genrtl-ai-bg-1) !important;
+	filter: brightness(1.1) !important;
+}
+
+.genrtl-ai-scrollable-element::-webkit-scrollbar-thumb:active,
+.genrtl-ai-scrollable-element *::-webkit-scrollbar-thumb:active {
+	background-color: var(--genrtl-ai-bg-1) !important;
+	filter: brightness(1.2) !important;
+}
+
+.genrtl-ai-scrollable-element::-webkit-scrollbar-track,
+.genrtl-ai-scrollable-element *::-webkit-scrollbar-track {
+	background-color: var(--genrtl-ai-bg-3) !important;
+	border: none !important;
+}
+
+.genrtl-ai-scrollable-element::-webkit-scrollbar-corner,
+.genrtl-ai-scrollable-element *::-webkit-scrollbar-corner {
+	background-color: var(--genrtl-ai-bg-3) !important;
+}

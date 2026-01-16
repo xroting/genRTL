@@ -1,0 +1,20 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "npm: compile - cline",
+			"type": "shell",
+			"command": "npm run protos; if ($?) { node esbuild.mjs }",
+			"options": {
+				"cwd": "${workspaceFolder}/cline"
+			},
+			"problemMatcher": "$tsc-watch",
+			"isBackground": false,
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			}
+		}
+	]
+}
+
