@@ -396,12 +396,9 @@ const ApplyButtonsForEdit = ({
 	if (isDisabled) {
 		return null
 	}
+	// 用户需求：隐藏Apply按钮，因为已经自动apply了
 	if (currStreamState === 'idle-no-changes') {
-		return <IconShell1
-			Icon={Play}
-			onClick={onClickSubmit}
-			{...tooltipPropsForApplyBlock({ tooltipName: 'Apply' })}
-		/>
+		return null // 不显示Apply按钮
 	}
 	if (currStreamState === 'idle-has-changes') {
 		return <Fragment>

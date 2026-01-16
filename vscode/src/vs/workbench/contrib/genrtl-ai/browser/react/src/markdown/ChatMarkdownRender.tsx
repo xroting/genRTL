@@ -323,9 +323,9 @@ const RenderToken = ({ token, inPTag, codeURI, chatMessageLocation, tokenIdx, ..
 				tokenIdx: tokenIdx,
 			})
 			
-			// 用户需求：隐藏Apply按钮，设置canApply为false
+			// 代码块自动apply，但保持canApply为true以显示代码块
 			return <BlockCodeApplyWrapper
-				canApply={false}
+				canApply={isCodeblockClosed}
 				applyBoxId={applyBoxId}
 				codeStr={contents}
 				language={language}
