@@ -358,7 +358,7 @@ export const defaultSettingsOfProvider: SettingsOfProvider = {
 		apiKey: 'managed-by-saas', // SaaS handles authentication, so this is a placeholder
 		baseURL: 'https://api.genrtl.com',
 		models: [
-			{ modelName: 'gpt-4.1-mini-2025-04-14', type: 'default', isHidden: false },
+			{ modelName: 'gpt-4o-mini', type: 'default', isHidden: false },
 			{ modelName: 'gpt-4o', type: 'default', isHidden: false },
 			{ modelName: 'gpt-4', type: 'default', isHidden: false },
 			{ modelName: 'gpt-3.5-turbo', type: 'default', isHidden: false },

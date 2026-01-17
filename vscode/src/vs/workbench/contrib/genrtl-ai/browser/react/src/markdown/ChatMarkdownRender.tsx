@@ -552,14 +552,8 @@ const RenderToken = ({ token, inPTag, codeURI, chatMessageLocation, tokenIdx, ..
 
 
 export const ChatMarkdownRender = ({ string, inPTag = false, chatMessageLocation, ...options }: { string: string, inPTag?: boolean, codeURI?: URI, chatMessageLocation: ChatMessageLocation | undefined } & RenderTokenOptions) => {
-	// #region agent log
-	fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ChatMarkdownRender.tsx:entry',message:'ChatMarkdownRender called',data:{stringLength:string?.length||0,stringPreview:string?.substring(0,100)||'',isApplyEnabled:options.isApplyEnabled,hasChatMessageLocation:!!chatMessageLocation},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'Q'})}).catch(()=>{});
-	// #endregion
 	string = string.replaceAll('\n•', '\n\n•')
 	const tokens = marked.lexer(string); // https://marked.js.org/using_pro#renderer
-	// #region agent log
-	fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ChatMarkdownRender.tsx:tokens',message:'Tokens parsed',data:{tokenCount:tokens.length,tokenTypes:tokens.map((t,i)=>({idx:i,type:t.type,hasLang:!!(t as any).lang}))},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'P'})}).catch(()=>{});
-	// #endregion
 	return (
 		<>
 			{tokens.map((token, index) => (

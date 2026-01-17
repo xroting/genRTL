@@ -9,7 +9,7 @@ import { usePromise, useRefState } from '../util/helpers.js'
 import { isFeatureNameDisabled } from '../../../../common/genrtlSettingsTypes.js'
 import { URI } from '../../../../../../../base/common/uri.js'
 import { FileSymlink, LucideIcon, RotateCw, Terminal } from 'lucide-react'
-import { Check, X, Square, Copy, Play, } from 'lucide-react'
+import { Check, X, Square, Copy, Play, CircleArrowRight } from 'lucide-react'
 import { getBasename, ListableToolItem, genRTLOpenFileFn, ToolChildrenWrapper } from '../sidebar-tsx/SidebarChat.js'
 import { PlacesType, VariantType } from 'react-tooltip'
 
@@ -386,6 +386,11 @@ const ApplyButtonsForEdit = ({
 	}, [uri, applyBoxId, editCodeService])
 
 	const currStreamState = currStreamStateRef.current
+	
+	// #region agent log
+	fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ApplyBlockHoverButtons.tsx:388',message:'ApplyButtonsForEdit render',data:{currStreamState,isDisabled,uri:uri==='current'?'current':uri?.toString()},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'BTN'})}).catch(()=>{});
+	// #endregion
+	
 	if (currStreamState === 'streaming') {
 		return <IconShell1
 			Icon={Square}
@@ -394,11 +399,21 @@ const ApplyButtonsForEdit = ({
 		/>
 	}
 	if (isDisabled) {
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ApplyBlockHoverButtons.tsx:402',message:'Apply按钮被禁用',data:{isDisabled,reason:'isDisabled=true'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'BTN'})}).catch(()=>{});
+		// #endregion
 		return null
 	}
-	// 用户需求：隐藏Apply按钮，因为已经自动apply了
+	// Apply按钮应该在 idle-no-changes 状态下显示
 	if (currStreamState === 'idle-no-changes') {
-		return null // 不显示Apply按钮
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ApplyBlockHoverButtons.tsx:409',message:'显示Apply按钮',data:{currStreamState:'idle-no-changes'},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'BTN'})}).catch(()=>{});
+		// #endregion
+		return <IconShell1
+			Icon={CircleArrowRight}
+			onClick={onClickSubmit}
+			{...tooltipPropsForApplyBlock({ tooltipName: 'Apply' })}
+		/>
 	}
 	if (currStreamState === 'idle-has-changes') {
 		return <Fragment>
@@ -516,6 +531,10 @@ export const BlockCodeApplyWrapper = ({
 	language: string;
 	uri: URI | 'current',
 }) => {
+	// #region agent log
+	fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ApplyBlockHoverButtons.tsx:519',message:'BlockCodeApplyWrapper渲染',data:{canApply,uri:uri==='current'?'current':uri.toString(),applyBoxId,language},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H4'})}).catch(()=>{});
+	// #endregion
+	
 	const accessor = useAccessor()
 	const commandService = accessor.get('ICommandService')
 	const editCodeService = accessor.get('IEditCodeService')
@@ -523,36 +542,11 @@ export const BlockCodeApplyWrapper = ({
 	const { currStreamStateRef, setApplying } = useApplyStreamState({ applyBoxId })
 	const currStreamState = currStreamStateRef.current
 	
-	// 用户需求：自动apply代码块
-	const hasAutoAppliedRef = useRef(false)
-	useEffect(() => {
-		// 只自动apply一次，且当前状态为idle-no-changes时
-		if (!hasAutoAppliedRef.current && currStreamState === 'idle-no-changes' && uri !== 'current') {
-			hasAutoAppliedRef.current = true
-			
-			// 延迟一下确保组件完全渲染
-			setTimeout(async () => {
-				try {
-					await editCodeService.callBeforeApplyOrEdit(uri)
-					const [newApplyingUri, applyDonePromise] = editCodeService.startApplying({
-						from: 'ClickApply',
-						applyStr: codeStr,
-						uri: uri,
-						startBehavior: 'reject-conflicts',
-					}) ?? []
-					setApplying(newApplyingUri)
-					
-					// 捕获错误
-					applyDonePromise?.catch(e => {
-						const uri2 = getUriBeingApplied(applyBoxId)
-						if (uri2) editCodeService.interruptURIStreaming({ uri: uri2 })
-					})
-				} catch (e) {
-					console.error('Auto-apply failed:', e)
-				}
-			}, 100)
-		}
-	}, [currStreamState, uri, codeStr, applyBoxId, editCodeService, setApplying])
+	// 用户需求：禁用自动apply代码块（改为手动点击）
+	// const hasAutoAppliedRef = useRef(false)
+	// useEffect(() => {
+	// 	// 自动apply功能已禁用 - 用户需要手动点击Apply按钮
+	// }, [currStreamState, uri, codeStr, applyBoxId, editCodeService, setApplying])
 
 
 	const name = uri !== 'current' ?
@@ -574,7 +568,11 @@ export const BlockCodeApplyWrapper = ({
 					{name}
 				</span>
 			</div>
-			<div className={`${canApply ? '' : 'hidden'} flex items-center gap-1`}>
+			<div className={`${canApply ? '' : 'hidden'} flex items-center gap-1`} ref={(el) => {
+				// #region agent log
+				if (el) fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'ApplyBlockHoverButtons.tsx:556',message:'Apply按钮div实际渲染',data:{canApply,isHidden:el.classList.contains('hidden'),currStreamState,uri:uri==='current'?'current':uri.toString()},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'BTN'})}).catch(()=>{});
+				// #endregion
+			}}>
 				<JumpToFileButton uri={uri} />
 				{currStreamState === 'idle-no-changes' && <CopyButton codeStr={codeStr} toolTipName='Copy' />}
 				<ApplyButtonsHTML uri={uri} applyBoxId={applyBoxId} codeStr={codeStr} language={language} />

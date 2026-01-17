@@ -158,7 +158,7 @@ export const defaultModelsOfProvider = {
 	awsBedrock: [],
 	liteLLM: [],
 	genrtlSaaS: [
-		'gpt-4.1-mini-2025-04-14',
+		'gpt-4o-mini',
 		'gpt-4o',
 		'gpt-4',
 		'gpt-3.5-turbo',
@@ -1486,21 +1486,21 @@ const modelSettingsOfProvider: { [providerName in ProviderName]: genRTLStaticPro
 	awsBedrock: awsBedrockSettings,
 	genrtlSaaS: {
 		modelOptions: {
-			'gpt-4.1-mini-2025-04-14': { ...defaultModelOptions, contextWindow: 1050000, reservedOutputTokenSpace: 32768, supportsSystemMessage: 'separated', reasoningCapabilities: false },
-			'gpt-4o': { ...defaultModelOptions, contextWindow: 128_000, reservedOutputTokenSpace: 16_384, supportsSystemMessage: 'separated', reasoningCapabilities: false },
-			'gpt-4': { ...defaultModelOptions, contextWindow: 8_000, reservedOutputTokenSpace: 4_096, supportsSystemMessage: 'separated', reasoningCapabilities: false },
-			'gpt-3.5-turbo': { ...defaultModelOptions, contextWindow: 16_000, reservedOutputTokenSpace: 4_096, supportsSystemMessage: 'separated', reasoningCapabilities: false },
+			'gpt-4o-mini': { ...defaultModelOptions, contextWindow: 128_000, reservedOutputTokenSpace: 16_000, supportsSystemMessage: 'separated', reasoningCapabilities: false },
+			'gpt-4o': { ...defaultModelOptions, contextWindow: 128_000, reservedOutputTokenSpace: 16_000, supportsSystemMessage: 'separated', reasoningCapabilities: false },
+			'gpt-4': { ...defaultModelOptions, contextWindow: 8_000, reservedOutputTokenSpace: 4_000, supportsSystemMessage: 'separated', reasoningCapabilities: false },
+			'gpt-3.5-turbo': { ...defaultModelOptions, contextWindow: 16_000, reservedOutputTokenSpace: 4_000, supportsSystemMessage: 'separated', reasoningCapabilities: false },
 		},
 		modelOptionsFallback: (modelName) => {
-			// For genrtlSaaS, use GPT-4.1-mini as default fallback
+			// For genrtlSaaS, use GPT-4o-mini as default fallback
 			return {
 				...defaultModelOptions,
-				contextWindow: 1050000,
-				reservedOutputTokenSpace: 32768,
+				contextWindow: 128_000,
+				reservedOutputTokenSpace: 16_000,
 				supportsSystemMessage: 'separated',
 				reasoningCapabilities: false,
 				modelName: modelName,
-				recognizedModelName: 'gpt-4.1-mini-2025-04-14',
+				recognizedModelName: 'gpt-4o-mini',
 			}
 		},
 	},

@@ -243,12 +243,12 @@ const _validatedModelState = (state: Omit<genrtlSettingsState, '_modelOptions'>)
 const defaultState = () => {
 	const d: genrtlSettingsState = {
 		settingsOfProvider: deepClone(defaultSettingsOfProvider),
-		modelSelectionOfFeature: {
-			'Chat': { providerName: 'genrtlSaaS', modelName: 'gpt-4.1-mini-2025-04-14' },
-			'Ctrl+K': { providerName: 'genrtlSaaS', modelName: 'gpt-4.1-mini-2025-04-14' },
-			'Autocomplete': { providerName: 'genrtlSaaS', modelName: 'gpt-4.1-mini-2025-04-14' }, 
-			'Apply': { providerName: 'genrtlSaaS', modelName: 'gpt-4.1-mini-2025-04-14' },
-			'SCM': { providerName: 'genrtlSaaS', modelName: 'gpt-4.1-mini-2025-04-14' } 
+		modelSelectionOfFeature: { 
+			'Chat': { providerName: 'genrtlSaaS', modelName: 'gpt-4o-mini' },  // Changed to OpenAI model
+			'Ctrl+K': { providerName: 'genrtlSaaS', modelName: 'gpt-4o-mini' },  // Changed to OpenAI model
+			'Autocomplete': { providerName: 'genrtlSaaS', modelName: 'gpt-4o-mini' }, 
+			'Apply': { providerName: 'genrtlSaaS', modelName: 'gpt-4o-mini' },  // Changed to OpenAI model
+			'SCM': { providerName: 'genrtlSaaS', modelName: 'gpt-4o-mini' } 
 		},
 		globalSettings: deepClone(defaultGlobalSettings),
 		optionsOfModelSelection: { 'Chat': {}, 'Ctrl+K': {}, 'Autocomplete': {}, 'Apply': {}, 'SCM': {} },
