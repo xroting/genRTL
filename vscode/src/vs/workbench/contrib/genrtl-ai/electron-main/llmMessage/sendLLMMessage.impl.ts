@@ -59,6 +59,10 @@ function getSaaSBaseUrl(): string {
 
 /**
  * Convert internal tool format to OpenAI-compatible format for SaaS
+ * 🚨 已禁用：不再使用tools功能，强制LLM直接输出Markdown代码块
+ */
+/**
+ * Convert tools to OpenAI format for SaaS (按照OpenCode最佳实践)
  */
 function convertToolsForSaaS(mcpTools: InternalToolInfo[] | undefined, chatMode: ChatMode | null): any[] | undefined {
 	if (!mcpTools || mcpTools.length === 0) return undefined;
@@ -155,7 +159,11 @@ async function sendSaaSChat({
 	try {
 		// Prepare request body
 		const openAiMessages = convertMessagesForSaaS(messages, separateSystemMessage);
+		// ✅ 启用tools功能：按照OpenCode最佳实践，允许LLM使用read_file等工具
 		const tools = convertToolsForSaaS(mcpTools, chatMode);
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sendLLMMessage.impl.ts:166',message:'前端准备发送请求',data:{mcpToolsCount:mcpTools?.length||0,mcpToolsIsArray:Array.isArray(mcpTools),chatMode,toolsAfterConvert:tools?.length||0},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+		// #endregion
 
 		const requestBody: any = {
 			messages: openAiMessages,
@@ -164,6 +172,7 @@ async function sendSaaSChat({
 			max_tokens: 8192, // Default, can be configured
 		};
 
+		// ✅ 启用tools功能：传递tools参数给后端
 		if (tools && tools.length > 0) {
 			requestBody.tools = tools;
 		}

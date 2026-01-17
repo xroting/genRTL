@@ -28,6 +28,9 @@ export const sendLLMMessage = async ({
 
 	metricsService: IMetricsService
 ) => {
+	// #region agent log
+	fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sendLLMMessage.ts:30',message:'sendLLMMessage入口',data:{mcpToolsCount:mcpTools?.length||0,mcpToolsIsUndefined:mcpTools===undefined,chatMode,messagesType},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+	// #endregion
 
 
 	const { providerName, modelName } = modelSelection

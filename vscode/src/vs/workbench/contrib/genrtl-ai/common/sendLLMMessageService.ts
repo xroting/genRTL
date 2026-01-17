@@ -14,6 +14,7 @@ import { Event } from '../../../../base/common/event.js';
 import { Disposable } from '../../../../base/common/lifecycle.js';
 import { IgenrtlSettingsService } from './genrtlSettingsService.js';
 import { IMCPService } from './mcpService.js';
+import { availableTools } from './prompt/prompts.js';
 
 // calls channel to implement features
 export const ILLMMessageService = createDecorator<ILLMMessageService>('llmMessageService');
@@ -118,7 +119,13 @@ export class LLMMessageService extends Disposable implements ILLMMessageService 
 
 		const { settingsOfProvider, } = this.genrtlSettingsService.state
 
-		const mcpTools = this.mcpService.getMCPTools()
+		// ✅ 获取完整的tools列表：内置工具 + MCP工具
+		const mcpToolsOnly = this.mcpService.getMCPTools()
+		const allTools = availableTools(params.chatMode || null, mcpToolsOnly)
+
+		// #region agent log
+		fetch('http://127.0.0.1:7243/ingest/4eeaa7bf-5db4-4a40-89b4-4cbbaffa678d',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'sendLLMMessageService.ts:121',message:'获取tools',data:{mcpToolsCount:mcpToolsOnly?.length||0,allToolsCount:allTools?.length||0,chatMode:params.chatMode,allToolNames:allTools?.map((t:any)=>t.name)||[]},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+		// #endregion
 
 		// add state for request id
 		const requestId = generateUuid();
@@ -133,7 +140,7 @@ export class LLMMessageService extends Disposable implements ILLMMessageService 
 			requestId,
 			settingsOfProvider,
 			modelSelection,
-			mcpTools,
+			mcpTools: allTools, // ✅ 传递完整的tools（内置+MCP），而不是只传MCP
 		} satisfies MainSendLLMMessageParams);
 
 		return requestId

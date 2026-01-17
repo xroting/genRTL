@@ -360,7 +360,9 @@ export const isABuiltinToolName = (toolName: string): toolName is BuiltinToolNam
 
 export const availableTools = (chatMode: ChatMode | null, mcpTools: InternalToolInfo[] | undefined) => {
 
-	const builtinToolNames: BuiltinToolName[] | undefined = chatMode === 'normal' ? undefined
+	// ✅ 按照OpenCode最佳实践：即使在normal模式，也应该提供基础工具（read_file等）
+	// 这样LLM才能正确读取文件后输出代码，而不是只"说"要读取
+	const builtinToolNames: BuiltinToolName[] | undefined = chatMode === 'normal' ? ['read_file', 'ls_dir', 'get_dir_tree', 'search_pathnames_only', 'search_for_files', 'search_in_file'] as BuiltinToolName[]
 		: chatMode === 'gather' ? (Object.keys(builtinTools) as BuiltinToolName[]).filter(toolName => !(toolName in approvalTypeOfBuiltinToolName))
 			: chatMode === 'agent' ? Object.keys(builtinTools) as BuiltinToolName[]
 				: undefined
